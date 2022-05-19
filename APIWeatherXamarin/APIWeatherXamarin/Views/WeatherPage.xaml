@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="APIWeatherXamarin.Views.WeatherPage">
+
+    <StackLayout>
+        <StackLayout BackgroundColor="LightGray" Padding="10">
+            <Label x:Name="datetimelbl" Text="DateTime"/>
+            <Entry x:Name="cityEnterEntry" Placeholder="City" BackgroundColor="LightGray"/>
+            <StackLayout Orientation="Horizontal" Spacing="20">
+                <StackLayout>
+                <Label x:Name="tempLbl" Text="Temp"/>
+                    <Label x:Name="feelLikeLbl" Text="GTemp"/>
+                </StackLayout>
+                <StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Image/>
+                        <Label x:Name="WindLbl" Text="Wind"/>
+                </StackLayout>
+                    <Label x:Name="HumidityLbl" Text="Humidity"/>
+                    <Label x:Name="PressureLbl" Text="Pressure"/>
+            </StackLayout>
+            </StackLayout>
+        </StackLayout>
+        <Button Text="Обновить погоду" Clicked="Button_Clicked"></Button>
+    </StackLayout>
+</ContentPage>
