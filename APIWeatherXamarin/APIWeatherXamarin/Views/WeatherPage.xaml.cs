@@ -12,7 +12,7 @@ namespace APIWeatherXamarin.Views
     public partial class WeatherPage : ContentPage
     {
         CancellationTokenSource cts;
-        Pin pin = new Pin();
+        
         public WeatherPage()
         {
             InitializeComponent();
@@ -25,14 +25,21 @@ namespace APIWeatherXamarin.Views
             DateTime d = DateTime.Now;
             datetimelbl.Text = d.ToString();
             tempLbl.Text = "t" + " " + a.main.temp.ToString();
+            typeweatherlbl.Text = a.weather[0].description;
             feelLikeLbl.Text = "ощущается как" + " " + a.main.feels_like.ToString();
             WindLbl.Text = "направление ветра" + " " + a.wind.gust.ToString();
             HumidityLbl.Text = "влажность" + " " + a.main.humidity.ToString();
             PressureLbl.Text = "давление" + " " + a.main.pressure.ToString();
-            Position position = new Position(a.coord.lat, a.coord.lon);
 
-            Map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(a.coord.lat, a.coord.lon), Distance.FromMiles(1)));
-            pin.Position = new Position(a.coord.lat, a.coord.lon);
+            MyMap.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(a.coord.lat, a.coord.lon), Distance.FromMiles(1)));
+            Pin pin = new Pin
+            {
+                Label = a.name,
+                Address = "",
+                Type = PinType.Place,
+                Position = (new Position(a.coord.lat, a.coord.lon))
+            };
+            MyMap.Pins.Add(pin);
         }
 
         async Task<Location> GetcurrLocation()
@@ -42,7 +49,7 @@ namespace APIWeatherXamarin.Views
             var location = await Geolocation.GetLocationAsync(request, cts.Token);
             if (location != null)
             {
-                Map.MoveToRegion (
+                MyMap.MoveToRegion (
                     MapSpan.FromCenterAndRadius(new Position (location.Latitude,
                         location.Longitude), Distance.FromKilometers(1))
                         );
